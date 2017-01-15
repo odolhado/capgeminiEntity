@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "18f33ca5286863f689139652d3b8e319",
+    "content-hash": "0ef833b8849ced8914f0ae16206b2fb1",
     "packages": [
         {
             "name": "csa/guzzle-bundle",
@@ -3480,7 +3480,7 @@
                 "symfony",
                 "testing"
             ],
-            "time": "2016-12-25T13:51:49+00:00"
+            "time": "2016-12-25 13:51:49"
         },
         {
             "name": "behat/gherkin",
@@ -3580,6 +3580,56 @@
                 "transliterator"
             ],
             "time": "2015-09-28T16:26:35+00:00"
+        },
+        {
+            "name": "codifico/parameter-bag-extension",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Codifico/ParameterBagExtension.git",
+                "reference": "8855f7c20df353f21f8cd73e57fce08fb6701348"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Codifico/ParameterBagExtension/zipball/8855f7c20df353f21f8cd73e57fce08fb6701348",
+                "reference": "8855f7c20df353f21f8cd73e57fce08fb6701348",
+                "shasum": ""
+            },
+            "require": {
+                "behat/behat": "~3.0,>=3.0.4",
+                "php": ">=5.4"
+            },
+            "require-dev": {
+                "phpspec/phpspec": "~2.0",
+                "phpunit/phpunit": "~4.0.7",
+                "symfony/process": "~2.1"
+            },
+            "type": "behat-extension",
+            "autoload": {
+                "psr-4": {
+                    "Codifico\\ParameterBagExtension\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marcin Dryka",
+                    "email": "marcin@codifico.pl"
+                }
+            ],
+            "description": "Parameter bag extension for Behat",
+            "homepage": "http://codifico.pl",
+            "keywords": [
+                "BDD",
+                "Behat",
+                "bag",
+                "codifico",
+                "parameter"
+            ],
+            "time": "2015-09-02 14:09:25"
         },
         {
             "name": "container-interop/container-interop",
@@ -4331,7 +4381,8 @@
     "stability-flags": {
         "friendsofsymfony/user-bundle": 20,
         "lexik/jwt-authentication-bundle": 20,
-        "behat/behat": 20
+        "behat/behat": 20,
+        "codifico/parameter-bag-extension": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

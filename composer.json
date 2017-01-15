@@ -44,7 +44,8 @@
         "symfony/phpunit-bridge": "^3.0",
 
         "phpspec/phpspec": "^2.4",
-        "behat/behat": "dev-master"
+        "behat/behat": "dev-master",
+        "codifico/parameter-bag-extension": "dev-master"
     },
     "scripts": {
         "symfony-scripts": [
@@ -75,4 +76,3 @@
         "branch-alias": null
     }
 }
-
