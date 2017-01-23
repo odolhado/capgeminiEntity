@@ -1,0 +1,35 @@
+index:
+    path:     /
+    defaults: { _controller: AppBundle:Default:index }
+
+create:
+    path: /person
+    defaults:
+        _controller: person.controller:createAction
+        _format: json
+    methods: [POST]
+
+update:
+    path: /person/{id}
+    defaults:
+        _controller: person.controller:updateAction
+        _format: json
+    methods: [PUT, PATCH]
+
+delete:
+    path: /person/{id}
+    defaults:
+        _controller: person.controller:deleteAction
+        _format: json
+    methods: [DELETE]
+
+get:
+    path: /person/{id}
+    defaults:
+        _controller: person.controller:getAction
+        _format: json
+    methods: [GET]
+
+get.person:
+    path:     /get/{id}
+    defaults: { _controller: AppBundle:Person:get }

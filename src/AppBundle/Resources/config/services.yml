@@ -1,0 +1,8 @@
+
+parameters:
+    app.entity.person: "AppBundle:Person"
+
+services:
+    guzzle.client:
+        class: GuzzleHttp\Client
+

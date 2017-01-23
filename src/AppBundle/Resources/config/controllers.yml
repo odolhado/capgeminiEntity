@@ -1,0 +1,9 @@
+services:
+    default.controller:
+        class: AppBundle\Controller\DefaultController
+
+    person.controller:
+        class: AppBundle\Controller\PersonController
+        arguments:
+            - "@person.manager"
+            - "@form.factory"

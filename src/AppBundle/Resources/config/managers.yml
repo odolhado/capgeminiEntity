@@ -1,0 +1,5 @@
+services:
+    person.manager:
+        class: AppBundle\Manager\PersonManager
+        arguments:
+            - "@=service('doctrine.orm.entity_manager').getRepository('AppBundle:Person')"
