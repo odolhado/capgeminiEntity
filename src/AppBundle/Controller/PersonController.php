@@ -7,8 +7,10 @@ use AppBundle\Controller\Component\ManagedControllerTrait;
 use AppBundle\Entity\Person;
 use AppBundle\Form\Type\PersonType;
 use AppBundle\Manager\PersonManager;
+use Doctrine\Common\Util\Debug;
 use FOS\RestBundle\View\View;
 use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Exception\InvalidParameterException;
@@ -33,16 +35,31 @@ class PersonController
     }
 
     /**
-     * @param $request
+     * @param $id
+     * @return View
+     */
+    public function getAction($id)
+    {
+        try {
+            $person = $this->getPerson($id);
+
+            return new View($person, Response::HTTP_OK, ['get']);
+
+        } catch (\Exception $e) {
+            return new View($e->getMessage(), Response::HTTP_CONFLICT);
+        }
+    }
+
+    /**
+     * @param $request Request
      * @return View|\Symfony\Component\Form\FormInterface
      */
-    public function createAction($request)
+    public function createAction(Request $request)
     {
         $form = $this->formFactory->createNamed('', PersonType::class);
         $form->submit($request->request->all());
 
         if ($form->isValid()) {
-
             $person = $form->getData();
 
             try {
@@ -59,46 +76,56 @@ class PersonController
     }
 
     /**
-     * @param $id
-     * @return View
+     * @param Request $request
+     * @return View|\Symfony\Component\Form\FormInterface
      */
-    public function getAction($id)
+    public function putAction(Request $request)
     {
-        $person = $this->getManager()->find($id);
-
-        if (!$person) {
-            throw new NotFoundHttpException(sprintf("Person %s does not exists", $id));
-        }
-
-        return new View($person, Response::HTTP_OK, ['get']);
-    }
-
-    /**
-     * @param $request
-     * @param $id
-     * @return View
-     */
-    public function updateAction($request, $id)
-    {
-        /** @var Person $person */
-        $person = $this->getManager()->find($id);
-
-        if (!$person) {
-            throw new NotFoundHttpException(sprintf("Document %s %s does not exists", $id, Person::class));
-        }
-
-        $form = $this->formFactory->createNamed('', PersonType::class, $person);
+        $form = $this->formFactory->createNamed('', PersonType::class);
         $form->submit($request->request->all(), false);
 
         try {
+            if ($form->isValid()) {
+                /** @var Person $person */
+                $person = $form->getData();
+
+                $this->getManager()->update($person);
+                $this->getManager()->flush();
+
+                return new View(null, Response::HTTP_NO_CONTENT);
+            }
+
+            return $form;
+
+        } catch (\Exception $e) {
+            return new View($e->getMessage(), Response::HTTP_CONFLICT);
+        }
+    }
+
+    /**
+     * @param $request Request
+     * @param $id
+     * @return View|\Symfony\Component\Form\FormInterface
+     */
+    public function updateAction(Request $request, $id)
+    {
+        try {
+            $person = $this->getPerson($id);
+
+            $form = $this->formFactory->createNamed('', PersonType::class, $person);
+            $form->submit($request->request->all(), false);
+
             if ($form->isValid()) {
                 $person = $form->getData();
 
                 $this->getManager()->update($person);
                 $this->getManager()->flush();
+
+                return new View(null, Response::HTTP_NO_CONTENT);
             }
 
-            return new View(null, Response::HTTP_NO_CONTENT);
+            return $form;
+
         } catch (\Exception $e) {
             return new View($e->getMessage(), Response::HTTP_CONFLICT);
         }
@@ -110,13 +137,9 @@ class PersonController
      */
     public function deleteAction($id)
     {
-        $person = $this->getManager()->find($id);
-
-        if (!$person) {
-            throw new NotFoundHttpException('Category does not exists');
-        }
-
         try {
+            $person = $this->getPerson($id);
+
             $this->getManager()->delete($person);
             $this->getManager()->flush();
 
@@ -124,6 +147,21 @@ class PersonController
         } catch (\Exception $e) {
             return new View($e->getMessage(), Response::HTTP_CONFLICT);
         }
+    }
+
+    /**
+     * @param $id
+     * @return Person
+     */
+    private function getPerson($id)
+    {
+        /** @var Person $person */
+        $person = $this->getManager()->find($id);
+        if (!$person instanceof Person) {
+            throw new NotFoundHttpException(sprintf("Person {id: %s} does not exists", $id));
+        }
+
+        return $person;
     }
 
 }
