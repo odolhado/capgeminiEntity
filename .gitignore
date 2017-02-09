@@ -3,6 +3,7 @@
 /phpunit.xml
 /var/*
 .idea
+.DS_Store
 !/var/cache
 /var/cache/*
 !var/cache/.gitkeep
