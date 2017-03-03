@@ -1,0 +1,25 @@
+ci:
+    extensions:
+        Behat\WebApiExtension:
+            base_url: http://localhost:8000/app_test.php/
+        Codifico\ParameterBagExtension\ServiceContainer\ParameterBagExtension: ~
+
+
+default:
+    extensions:
+        Behat\WebApiExtension:
+            base_url: http://nginx:8000/app_test.php/
+        Codifico\ParameterBagExtension\ServiceContainer\ParameterBagExtension: ~
+
+    suites:
+        api:
+            paths:
+                - features/api
+            contexts:
+                - Housible\Behat\Context\WebContext: ~
+                - Housible\Behat\Context\MatcherContext: ~
+                - Housible\Behat\Context\FeatureContext:
+                    personManager: "@person.manager"
+            filters:
+                tags: "@api"
+
