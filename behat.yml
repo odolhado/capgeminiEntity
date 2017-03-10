@@ -4,13 +4,14 @@ ci:
             base_url: http://localhost:8000/app_test.php/
         Codifico\ParameterBagExtension\ServiceContainer\ParameterBagExtension: ~
 
-
 default:
+#    autoload:
+#        '': %paths.base%/features/api/bootstrap
     extensions:
         Behat\WebApiExtension:
-            base_url: http://nginx:8000/app_test.php/
-        Codifico\ParameterBagExtension\ServiceContainer\ParameterBagExtension: ~
-
+          base_url: http://nginx:8000/app_test.php/
+        Behat\Symfony2Extension: ~
+#        Codifico\ParameterBagExtension\ServiceContainer\ParameterBagExtension: ~
     suites:
         api:
             paths:
@@ -18,8 +19,10 @@ default:
             contexts:
                 - Housible\Behat\Context\WebContext: ~
                 - Housible\Behat\Context\MatcherContext: ~
+#                - FeatureContext:
                 - Housible\Behat\Context\FeatureContext:
-                    personManager: "@person.manager"
+                    manager: '@doctrine.orm.entity_manager'
+                    personManager: '@person.manager'
             filters:
                 tags: "@api"
 

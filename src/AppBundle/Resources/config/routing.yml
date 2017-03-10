@@ -3,35 +3,35 @@ index:
     defaults: { _controller: AppBundle:Default:index }
 
 create:
-    path: /persons
+    path: /people
     defaults:
         _controller: person.controller:createAction
         _format: json
     methods: [POST]
 
 put:
-    path: /persons
+    path: /people
     defaults:
         _controller: person.controller:putAction
         _format: json
     methods: [PUT, PATCH]
 
 update:
-    path: /persons/{id}
+    path: /people/{id}
     defaults:
         _controller: person.controller:updateAction
         _format: json
     methods: [PUT, PATCH]
 
 delete:
-    path: /persons/{id}
+    path: /people/{id}
     defaults:
         _controller: person.controller:deleteAction
         _format: json
     methods: [DELETE]
 
 get:
-    path: /persons/{id}
+    path: /people/{id}
     defaults:
         _controller: person.controller:getAction
         _format: json

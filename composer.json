@@ -13,7 +13,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/"
+            "Tests\\": "tests/",
+            "Housible\\Behat\\Context\\": "features/bootstrap"
         }
     },
     "require": {
@@ -52,9 +53,9 @@
         "mybuilder/phpunit-accelerator": "^1.1",
 
         "behat/behat": "dev-master",
-        "behat/symfony2-extension": "^2.1",
+        "behat/web-api-extension": "~1.0@dev",
         "codifico/parameter-bag-extension": "dev-master",
-        "clearcodehq/web-api-extension": "dev-master",
+        "behat/symfony2-extension": "^2.1",
         "guzzlehttp/guzzle": "^6.2",
         "phpspec/phpspec": "^3.1",
         "friendsofphp/php-cs-fixer": "dev-master"

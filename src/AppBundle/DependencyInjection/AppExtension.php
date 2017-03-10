@@ -18,6 +18,12 @@ class AppExtension extends Extension
             $container,
             new FileLocator(__DIR__.'/../Resources/config')
         );
+
+//        $loader = new YamlFileLoader(
+//            $container,
+//            new FileLocator(__DIR__ . '/../')
+//        );
+
         $loader->load('services.yml');
         $loader->load('controllers.yml');
         $loader->load('managers.yml');
