@@ -30,9 +30,6 @@ class FeatureContext implements Context, KernelAwareContext
     {
         $this->manager = $manager;
         $this->personManager = $personManager;
-
-        file_put_contents('var/logs/dev.log', sprintf("personManager class: %s  \n", get_class($personManager)), FILE_APPEND);
-        file_put_contents('var/logs/dev.log', sprintf("manager class: %s  \n\n", get_class($manager)), FILE_APPEND);
     }
 
     public function setKernel(KernelInterface $kernelInterface)

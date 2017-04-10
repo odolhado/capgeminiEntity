@@ -4,14 +4,24 @@ namespace Housible\Behat\Context;
 
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
-use Behat\WebApiExtension\Context\WebApiContext as BaseWebApiContext;
+use Behat\WebApiExtension\Context\WebApiContext AS BaseWebApiContext;
 use Codifico\ParameterBagExtension\Context\ParameterBagDictionary;
 use PHPUnit_Framework_Assert as Assertions;
 
+/**
+ * Run by: vendor/behat/behat/bin/behat features/api/person.feature
+ *     or: bin/behat features/api/person.feature
+ *
+ * Class WebContext
+ * @package Housible\Behat\Context
+ */
 class WebContext extends BaseWebApiContext
 {
+
+
     protected $loader;
     protected $twig;
+
 
     function __construct()
     {
@@ -27,7 +37,7 @@ class WebContext extends BaseWebApiContext
 
         parent::iSendARequest($method, $url);
 
-        $this->getParameterBag()->set('response', $this->response);
+        $this->getParameterBag()->set('response', $this->getResponse());
     }
 
 
@@ -35,7 +45,7 @@ class WebContext extends BaseWebApiContext
     {
         parent::iSendARequestWithValues($method, $url, $post);
 
-        $this->getParameterBag()->set('response', $this->response);
+        $this->getParameterBag()->set('response', $this->getResponse());
     }
 
     public function iSendARequestWithBody($method, $url, PyStringNode $string)
@@ -43,25 +53,13 @@ class WebContext extends BaseWebApiContext
         $name = md5($string);
         $this->loader->setTemplate($name, (string)$string);
 
-//                $options = [
-//                    'debug' => true,
-//                    'form_params' => [
-//                        'test' => 15,
-//                        'id' => 43252435243654352,
-//                        'name' => 'this is a random name',
-//                    ]
-////                    'on_stats' => $someCallableItem,
-//                ];
-//                $response = $client->post('api', $options);
-
-
         $body = $this->twig->render($name, $this->getParameterBag()->getAll());
         $string = new PyStringNode(explode("\n", $body), $string->getLine());
 
         $url = $this->parameterize($url);
         parent::iSendARequestWithBody($method, $url, $string);
 
-        $this->getParameterBag()->set('response', $this->response);
+        $this->getParameterBag()->set('response', $this->getResponse());
     }
 
     public function iSendARequestWithFormData($method, $url, PyStringNode $body)
@@ -69,7 +67,7 @@ class WebContext extends BaseWebApiContext
 
         parent::iSendARequestWithFormData($method, $url, $body);
 
-        $this->getParameterBag()->set('response', $this->response);
+        $this->getParameterBag()->set('response', $this->getResponse());
     }
 
     /**
@@ -79,8 +77,8 @@ class WebContext extends BaseWebApiContext
      */
     public function printPrettyResponse()
     {
-        $request = $this->request;
-        $response = $this->response;
+        $request = $this->getRequest();
+        $response = $this->getResponse();
 
         echo sprintf(
             "%s %s => %d:\n%s",
@@ -96,7 +94,7 @@ class WebContext extends BaseWebApiContext
      */
     public function theResponseShouldBeEmpty()
     {
-        Assertions::assertSame('', (string)$this->response->getBody());
+        Assertions::assertSame('', (string)$this->getResponse()->getBody());
     }
 
     private function parameterize($string)

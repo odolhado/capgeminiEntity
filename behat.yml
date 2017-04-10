@@ -11,12 +11,14 @@ default:
         Behat\WebApiExtension:
           base_url: http://nginx:8000/app_test.php/
         Behat\Symfony2Extension: ~
-#        Codifico\ParameterBagExtension\ServiceContainer\ParameterBagExtension: ~
+        Codifico\ParameterBagExtension\ServiceContainer\ParameterBagExtension: ~
     suites:
         api:
             paths:
                 - features/api
             contexts:
+                - Housible\Behat\Context\DatabaseContext:
+                    manager: '@doctrine.orm.entity_manager'
                 - Housible\Behat\Context\WebContext: ~
                 - Housible\Behat\Context\MatcherContext: ~
 #                - FeatureContext:

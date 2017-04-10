@@ -18,3 +18,6 @@ services:
         arguments:
             - "@=service('doctrine.orm.entity_manager').getRepository('AppBundle:Person')"
 
+doctrine:
+    dbal:
+        dbname:   "test_symfony"

@@ -52,11 +52,12 @@
         "squizlabs/php_codesniffer": "^2.7",
         "mybuilder/phpunit-accelerator": "^1.1",
 
+        "doctrine/doctrine-fixtures-bundle": "^2.3",
         "behat/behat": "dev-master",
-        "behat/web-api-extension": "~1.0@dev",
+        "odolhado/web-api-extension": "dev-master",
         "codifico/parameter-bag-extension": "dev-master",
         "behat/symfony2-extension": "^2.1",
-        "guzzlehttp/guzzle": "^6.2",
+        "guzzlehttp/guzzle": "^5.3",
         "phpspec/phpspec": "^3.1",
         "friendsofphp/php-cs-fixer": "dev-master"
     },
